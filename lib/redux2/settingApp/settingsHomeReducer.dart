@@ -8,9 +8,9 @@ postsReducerHome(PostsStateHome prevState, SetPostsStateActionHome action) {
     isError: payload.isError,
     isLoading: payload.isLoading,
    
-    dataUserList: payload.dataUserList,
-    modelRestaurant: payload.modelRestaurant,
+
     search: payload.search,
+    modelInfoProduct : payload.modelInfoProduct,
 
 
     // posts: payload.posts,

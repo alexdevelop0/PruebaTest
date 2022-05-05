@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:pruebaTest/app/app_settings.dart';
-import 'package:pruebaTest/data/models/RestaurantModel.dart';
+import 'package:pruebaTest/data/models/InfoProductModel.dart';
 
-import 'package:pruebaTest/data/models/UserModel2.dart';
 import 'package:pruebaTest/data/networking/api.dart';
 import 'package:pruebaTest/redux2/app/app_state.dart';
 import 'package:pruebaTest/redux2/settingApp/settingsHomeState.dart';
@@ -27,32 +26,28 @@ class settingHomeMiddleware extends MiddlewareClass<AppState> {
   
       
 
-      if (action is getRestaurantAction) {
-        return _getListRestaurant(next, action, store);
+      if (action is getProductAction) {
+        return _getListProduct(next, action, store);
       }
     }
   }
 
 
- Future<void> _getListRestaurant(
-      NextDispatcher next, getRestaurantAction action, Store<AppState> store) async {
-    print("prueba67");
+ Future<void> _getListProduct(
+      NextDispatcher next, getProductAction action, Store<AppState> store) async {
 
-    // try {
-    var response = await API().getRestaurant(
+    var response = await API().getProduct(search: action.search
     );
 
 
     switch (response.statusCode) {
       case AppSettings.statusCodeSuccess:
-        print("prueba1: "+response.data.toString());
 
-        ModelRestaurant data =modelRestaurantFromJson(response.data.toString());
 
-       // print("prueba2: "+data.length.toString());
+        ModelInfoProduct data = modelInfoProductFromJson(response.data.toString());
         ReduxHome.store.dispatch(
           SetPostsStateActionHome( PostsStateHome(
-             modelRestaurant: data
+             modelInfoProduct: data
           )),
         );
 
@@ -63,17 +58,13 @@ class settingHomeMiddleware extends MiddlewareClass<AppState> {
 
         AlertWidget().message(action.context, response.message);
 
-        // alertConfirmNumber2(action.context);
-        // alertForgortPassword3(action.context);
+
 
         break;
       default:
         AlertWidget().message(action.context, response.message);
     }
-    /*} catch (e) {
-
-      AlertWidget().message(action.context, e.toString());
-    }*/
+    
   }
 
   

@@ -23,7 +23,7 @@ class AppWidget {
     ),*/
       FadeInImage(
         placeholder: NetworkImage('https://thumbs.dreamstime.com/b/fondo-gris-132209705.jpg'),
-        image: NetworkImage("https://thumbs.dreamstime.com/b/fondo-gris-132209705.jpg"),
+        image: NetworkImage(urlFoto),
         fit: BoxFit.cover,
       ),
     );

@@ -1,6 +1,5 @@
 
-import 'package:pruebaTest/data/models/RestaurantModel.dart';
-import 'package:pruebaTest/data/models/UserModel2.dart';
+import 'package:pruebaTest/data/models/InfoProductModel.dart';
 import 'package:meta/meta.dart';
 
 
@@ -9,9 +8,9 @@ class PostsStateHome {
   final bool isError;
   final bool isLoading;
 
-  final ModelActivityUser dataUserList;
- final ModelRestaurant modelRestaurant;
+
  final String search;
+ final ModelInfoProduct modelInfoProduct;
 
   // final List<modelFavorites> posts;
 
@@ -21,9 +20,9 @@ class PostsStateHome {
 
     this.isLoading,
 
-    this.dataUserList,
-    this.modelRestaurant,
+
     this.search,
+    this.modelInfoProduct,
     
 
     //this.posts,
@@ -34,9 +33,9 @@ class PostsStateHome {
         isError: false,
 
 
-    dataUserList: null,
-    modelRestaurant: null,
+
     search: "Barranquilla",
+    modelInfoProduct: null,
 
       );
 
@@ -45,9 +44,9 @@ class PostsStateHome {
 
     @required bool isLoading,
 
-    @required ModelActivityUser dataUserList,
-    @required  ModelRestaurant modelRestaurant,
+
     @required String search,
+    @required ModelInfoProduct modelInfoProduct,
 
   }) {
     return PostsStateHome(
@@ -55,9 +54,9 @@ class PostsStateHome {
       isLoading: isLoading ?? this.isLoading,
 
 
-      dataUserList: dataUserList ?? this.dataUserList,
-      modelRestaurant: modelRestaurant ?? this.modelRestaurant,
+      
       search: search ?? this.search,
+      modelInfoProduct :  modelInfoProduct ?? this.modelInfoProduct,
 
     );
   }

@@ -10,18 +10,19 @@ class API {
 
 
 
-  String uidUser = "";
 
 
 
 
-  static const String GET_POSTS = "/api/character/";
 
-  static const String RESTAURANT_URL = "https://api.geoapify.com/v2/places?categories=catering.restaurant&filter=rect%3A10.716463143326969%2C48.755151258420966%2C10.835314015356737%2C48.680903341613316&limit=20&apiKey=2be91b4f93794efabff119b675fc9aa3";
+  static const String SEARCH_PRODUCT = "search?q=";
+  
+
+  static const String URL = "https://api.mercadolibre.com/sites/MLA/";
 
 
- Future<MyHttpResponse> getRestaurant() async {
-    var url = Uri.parse(RESTAURANT_URL);
+ Future<MyHttpResponse> getProduct({String search }) async {
+    var url = Uri.parse(URL+SEARCH_PRODUCT+search);
     print(url.toString());
     MyHttpResponse response = await getRequest(url);
    try {

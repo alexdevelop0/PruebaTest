@@ -1,10 +1,12 @@
 
 import 'package:geolocator/geolocator.dart';
-import 'package:pruebaTest/data/models/RestaurantModel.dart';
-import 'package:pruebaTest/data/models/UserModel2.dart';
+import 'package:intl/intl.dart';
+import 'package:pruebaTest/data/models/InfoProductModel.dart';
+
 import 'package:pruebaTest/styles/colors.dart';
 import 'package:pruebaTest/styles/style.dart';
-import 'package:pruebaTest/ui/profile/profileScreen.dart';
+import 'package:pruebaTest/ui/main/infoProductScreen.dart';
+
 import 'package:pruebaTest/widget/widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +39,21 @@ class AppCard {
       ),
     );
   }*/
-  Widget widgetCardHome(BuildContext context, Feature data) {
+  Widget widgetCardHome(BuildContext context, ResultInfoProduct data) {
     return Card(
       elevation: 2,
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+
+           Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => infoProductPage(data: data,),
+                              ),
+                            );
+        },
         child: Container(
+          color: Colors.white,
           margin: EdgeInsets.only(left: 15),
           child: Stack(
             children: [
@@ -51,7 +62,7 @@ class AppCard {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: AppWidget().widgetImage(
-                    data.type.toString(),
+                    data.thumbnail,
                       80,
                       80,
                     ),
@@ -63,14 +74,20 @@ class AppCard {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                        Flexible(child: Text(
-                          data.properties.name,
-                          style: AppStyle().styleText(20,  AppColors.main2Color, true),
+                          data.title,
+                          style: AppStyle().styleText(16,  Colors.black, false,bold2: false),
                         )),
+                        SizedBox(height: 10,),
                       
-                               Flexible(child:     Text(data.properties.formatted.toString(),
-                                style: AppStyle().styleText(14, Colors.black, false))),
-                      
-                            Text(data.properties.formatted.toString(),
+                           Row(children: [
+  Icon(Icons.attach_money_sharp,size: 24, color: Colors.black,),
+
+ Text(
+                     NumberFormat("#,##0", "en_US").format(     double.parse(data.price.toString())),
+                          style: AppStyle().styleText(20,  Colors.black, false,bold2: false)),
+],),
+ SizedBox(height: 10,),
+                            Text( data.catalogProductId.toString(),
                                 style: AppStyle().styleText(14, Colors.black, false)),
                    
 

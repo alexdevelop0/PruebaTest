@@ -13,8 +13,9 @@ class getListUserAction extends ErrorAction {
 
 }
 
-class getRestaurantAction extends ErrorAction {
-  getRestaurantAction(BuildContext context) : super(context);
+class getProductAction extends ErrorAction {
+  getProductAction(BuildContext context,this.search) : super(context);
+  String search;
 
 }
 

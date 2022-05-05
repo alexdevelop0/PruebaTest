@@ -29,10 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AdaptScreen.initAdapt(context);
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
+   
     return StoreProvider(
         store: ReduxHome.store,
         child:

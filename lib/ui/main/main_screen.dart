@@ -4,9 +4,9 @@ import 'dart:async';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:pruebaTest/data/models/HistorySearch.dart';
-import 'package:pruebaTest/data/models/RestaurantModel.dart';
-import 'package:pruebaTest/data/models/UserModel2.dart';
+
+import 'package:pruebaTest/data/models/InfoProductModel.dart';
+
 import 'package:pruebaTest/data/networking/api.dart';
 import 'package:pruebaTest/generated/l10n.dart';
 
@@ -22,7 +22,7 @@ import 'package:pruebaTest/sharedPreferences/shared.dart';
 
 import 'package:pruebaTest/styles/colors.dart';
 import 'package:pruebaTest/styles/style.dart';
-import 'package:pruebaTest/ui/main/historyScreen.dart';
+
 
 import 'package:pruebaTest/utils/adapt_screen.dart';
 import 'package:pruebaTest/utils/alert.dart';
@@ -224,15 +224,8 @@ print("prueba60");
                 _store = store;
               },
               builder: (context, value) {
-                return RefreshIndicator(
-                    onRefresh: () {
-
-                      /*var action = RefreshItemsAction();
-                  Redux.store
-                      .dispatch(UpdateUserInfo(state.userState.user, action));
-                  return action.completer.future;*/
-                    },
-                    child:Stack(children: <Widget>[
+                return 
+                 Stack(children: <Widget>[
                       Positioned(
                           top: -60.0, right: -35, child: _decorationBox()),
                       Container(
@@ -244,17 +237,18 @@ print("prueba60");
 
                         children: [
                           Container(
+                            margin: EdgeInsets.only(left: 40,right:40,top:40,bottom: 20),
                             child: Center(
                               child: Image(
                                 image: AssetImage(AssetsRoutes.loginIcon),
-                                height: 200.0,
-                                color: Colors.white,
+                                height: 100.0,
+                             //   color: Colors.white,
 
                               ),
                             ),
                           ),
 
-                            if (_currentPosition != null) Text(
+                          /*  if (_currentPosition != null) Text(
               "LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}"
             ),
 
@@ -280,10 +274,10 @@ Text("Click ver historial", style: AppStyle().styleText(16, Colors.white, false,
 SizedBox(height: 10,),
 
             ]),
-)),
+)),*/
 SizedBox(height: 10,),
 
-              Column(
+             /* Column(
                 children: [ 
 
 
@@ -291,9 +285,10 @@ SizedBox(height: 10,),
                      Text("Latitude: $lat", style: TextStyle(fontSize: 18),)
 
                 ]
-              ),
+              ),*/
+              
               SizedBox(height: 10,),
-            Row(children: [
+           /* Row(children: [
 
 
 
@@ -359,7 +354,36 @@ SizedBox(height: 10,),
 
 
 
-            ],),
+            ],),*/
+
+          Container(margin: EdgeInsets.only(left: 20,right:20),child:  TextField(
+                  onChanged: (text) {
+ asinc() async {
+      Store<AppState> store =
+      await createStore(api: API());
+
+
+      store.dispatch(getProductAction(
+        context,text,
+      ));
+    }
+
+    asinc();
+   
+  },
+            decoration: InputDecoration(
+               prefixIcon: Icon(Icons.search),
+                labelText: 'Buscar',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                focusedBorder: OutlineInputBorder(
+                borderSide: const BorderSide(width: 1, color: Colors.grey),
+                  borderRadius: BorderRadius.circular(10),
+                )),
+          )),
+          SizedBox(height: 10,),
 
                         /*Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
@@ -382,8 +406,8 @@ SizedBox(height: 10,),
                           ),*/
 
 
-                          
-                          ReduxHome.store.state.postsState.modelRestaurant == null ?
+                        //  Text( ReduxHome.store.state.postsState.modelInfoProduct.results.length.toString()),
+                        ReduxHome.store.state.postsState.modelInfoProduct == null ?
                           
                           Column(children: [
                             SizedBox(height: 40,),
@@ -393,35 +417,23 @@ SizedBox(height: 10,),
                         : ListView.builder(
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
-                              itemCount:  ReduxHome.store.state.postsState.modelRestaurant.features.length,
+                              itemCount:  ReduxHome.store.state.postsState.modelInfoProduct.results.length,
                               itemBuilder: (BuildContext ctxt, int index) {
                               
-                               Feature dataUser = ReduxHome.store.state.postsState.modelRestaurant.features[index];
+                               ResultInfoProduct dataInfo = ReduxHome.store.state.postsState.modelInfoProduct.results[index];
                                 
 
-                                if (search
-                                    .trim()
-                                    .length == 0
-                                ) {
                                   return AppCard().widgetCardHome(
-                                      context, dataUser);
-                                } else {
-                                  if (dataUser.properties.addressLine1
-                                      .toLowerCase()
-                                      .contains(search)) {
-                                    return AppCard().widgetCardHome(
-                                        context, dataUser);
-                                  } else {
-                                    return SizedBox();
-                                  }
-                                }
+                                      context, dataInfo);
+                               
+                                
                               }
                           )
                         ],
                       ),
-                    ]));
+                    ]);
               })),
-      floatingActionButton: SpeedDial(
+      /*floatingActionButton: SpeedDial(
         marginEnd: 18,
         marginBottom: 20,
 
@@ -466,7 +478,7 @@ SizedBox(height: 10,),
 
 
         ],
-      ),
+      ),*/
     );
   }
 
@@ -481,8 +493,8 @@ SizedBox(height: 10,),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(80.0),
               gradient: LinearGradient(colors: [
-                AppColors.mainColor,
-                AppColors.main2Color,
+                AppColors.bgPrimaryColor,
+                AppColors.bgPrimaryColor,
               ])),
         ));
   }
@@ -492,8 +504,8 @@ SizedBox(height: 10,),
       await createStore(api: API());
 
 
-      store.dispatch(getRestaurantAction(
-        context,
+      store.dispatch(getProductAction(
+        context,"Motorola%20G6",
       ));
     }
 

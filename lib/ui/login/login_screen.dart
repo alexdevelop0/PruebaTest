@@ -5,6 +5,7 @@ import 'package:pruebaTest/generated/l10n.dart';
 
 import 'package:pruebaTest/routes/assets_routes.dart';
 import 'package:pruebaTest/styles/colors.dart';
+import 'package:pruebaTest/styles/style.dart';
 import 'package:pruebaTest/utils/adapt_screen.dart';
 import 'package:pruebaTest/utils/alert.dart';
 import 'package:pruebaTest/utils/utils.dart';
@@ -70,25 +71,24 @@ final _ediPassword = TextEditingController();
 
       Container(
 
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            gradient: LinearGradient(colors: [
-              AppColors.main2Color,
-              AppColors.mainColor,
-            ])),
+        
 
-        child: Stack(children: <Widget>[
-          Positioned(
-              top: -60.0, right: -35, child: _decorationBox()),
+        child: Column(children: <Widget>[
+           SizedBox(height: 70,),
+         Container(margin: EdgeInsets.only(left: 30,right: 30),
+                    child: Center(
+                      child: Image(
+                        image: AssetImage(AssetsRoutes.loginIcon),
+                        height: 150.0,
+
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 70,),
+
+ 
           Container(
-            padding: EdgeInsets.all(15.0),
-          ),
-
-          ListView(),
-          Positioned(
-              top: AdaptScreen.screenHeight() * 0.48,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 12.0),
+             margin: EdgeInsets.only(left: 25,right: 25),
                 child: Form(key: _formKey,child:Column(
 
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -96,7 +96,7 @@ final _ediPassword = TextEditingController();
                    
  Container(
    height: 70,
-   width: 300,
+   width: double.infinity,
                                     padding: EdgeInsets.all(8.0),
                                     decoration: BoxDecoration(
                                         border: Border(
@@ -111,17 +111,32 @@ final _ediPassword = TextEditingController();
                                       },
                                       controller: _ediUser,
                                       style: TextStyle(
-                                              color: Colors.white),
+                                              color: Colors.black),
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
+                                        //  border: InputBorder.none,
                                           hintText: AppLocalizations.of(context).user,
                                           hintStyle: TextStyle(
                                               color: Colors.grey[400])),
                                     ),
                                   ),
+
+
+
+                      /*             Row(
+    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Column(
+          children: [
+            Text("Hello 1"),
+            Text("Hello 2"),
+          ],
+      //  mainAxisAlignment:MainAxisAlignment.spaceBetween
+        ),
+      ],
+    ),*/
                                   Container(
-                                     height: 70,
-   width: 300,
+                 height: 70,
+   width: double.infinity,
                                     padding: EdgeInsets.all(8.0),
                                     child: TextFormField(
                                       validator: (value) {
@@ -132,10 +147,10 @@ final _ediPassword = TextEditingController();
                                       },
                                       obscureText: true,
                                        style: TextStyle(
-                                              color: Colors.white),
+                                              color: Colors.black),
                                       controller: _ediPassword,
                                       decoration: InputDecoration(
-                                          border: InputBorder.none,
+                                         // border: InputBorder.none,
                                           hintText: AppLocalizations.of(context).password,
                                           hintStyle: TextStyle(
                                               color: Colors.grey[400])),
@@ -150,7 +165,7 @@ final _ediPassword = TextEditingController();
                     _submitButtom(context)
                   ],
                 ),
-           ) )),
+           ) ),
         ]),
       ));
 
@@ -162,25 +177,40 @@ final _ediPassword = TextEditingController();
 
 
   Widget _submitButtom(BuildContext context) {
-    return RaisedButton(
+    return 
+    
+   
+      
+  Container(margin: EdgeInsets.only(left: 20,right: 20),height: 60,width: double.infinity,child:ElevatedButton(
+          onPressed: ()  {
 
-        elevation: 0,
-        child: Container(
-          margin: EdgeInsets.only(left: 20),
-          padding: EdgeInsets.symmetric(horizontal: 120, vertical: 30.0),
-          child:  Text(AppLocalizations.of(context).run,
-                  style: TextStyle(color: AppColors.mainColor, fontSize: 20.0)),
-        ),
-        color:Colors.white,
-        onPressed: () {
-          if(_formKey.currentState.validate()){
+            if(_formKey.currentState.validate()){
             if(_ediPassword.text == "1234" &&_ediUser.text == "admin"  ){
   Navigator.pushNamed(context, 'main');
             }else{
               AlertWidget().message(context, "Datos incorrectos");
             }
           }
+          },
+          
+       
+          child: Text('Entrar',style:  AppStyle().styleText(16, Colors.white, false,bold2:true),),
+          
+           style: ElevatedButton.styleFrom(
+              elevation: 0, //Defines Elevation
+               primary: AppColors.raisedButtonColor,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(5), 
       
-        });
+      
+      
+ 
+    ),
+  ),
+         
+               
+        ),
+      );
+    
   }
 }
